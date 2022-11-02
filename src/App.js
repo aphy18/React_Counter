@@ -14,6 +14,7 @@ function App() {
   let label;
   let toggleText;
   let enterNum;
+  let select;
 
   function toggleCounter() {
 
@@ -27,16 +28,37 @@ function App() {
     textfield = document.createElement('input');
     label = document.createElement('label');
     enterNum = document.createElement('button');
+
+    select = document.createElement('select');
+    let add = document.createElement('option');
+    let subtract = document.createElement('option');
+    let multiply = document.createElement('option');
+    let divide = document.createElement('option');
+
     
 
-  
     if (toggle) {
+      sumContainer.classList.add('block');
       textfield.type = 'text';
       label.innerText = 'Enter Number: '
       enterNum.innerText = 'Calculate';
       enterNum.classList.add('enterNum');
-      sumContainer.classList.add('block');
-      sumContainer.append(label, textfield, enterNum);
+
+      add.innerText = '+';
+      add.value = '+'
+
+      subtract.innerText = '-';
+      subtract.value = '-';
+
+      multiply.innerText = '*';
+      multiply.value = '*';
+
+      divide.innerText = '/';
+      divide.value = '/';
+
+      select.append(add, subtract, multiply, divide);
+      console.log('select value -->', select.value)
+      sumContainer.append(label, textfield, enterNum, select);
       bottomMain.append(sumContainer);
       enterNum.addEventListener('click', updateCounter)
       setButtonText('Escape')
@@ -49,10 +71,9 @@ function App() {
   }
   
   function updateCounter() {
-    let value = parseInt(textfield.value);
+    let value = parseFloat(textfield.value);
     if (!isNaN(value)) {
-      let operation = prompt('Enter operation (+, -, *, /)')
-      switch(operation) {
+      switch(select.value) {
         case '+':
           setCounter(counter += value);
           console.log('counter', counter)
@@ -81,8 +102,8 @@ function App() {
 
     <main className="main">
       <div className="top-main">
-        <button className="increment" onClick={() => setCounter(counter = counter + 1)}>Count Up</button>
-        <button className="decrement" onClick={() => setCounter(counter > 0 ? counter = counter - 1 : 0)}>Count Down</button>
+        <button className="increment" onClick={() => setCounter(counter += 1)}>Count Up</button>
+        <button className="decrement" onClick={() => setCounter(counter -= 1)}>Count Down</button>
         <button className="reset" onClick={() => setCounter(0)}>Reset</button>
         <button className="change" onClick={() => toggleCounter()}>{buttonText}</button>
       </div>
