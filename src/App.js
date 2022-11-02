@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-// import './../styles/styles.css'
+import './styles/styles.css';
 
 
 function App() {
@@ -54,7 +54,6 @@ function App() {
 
   function toggleCounter() {
     setToggle(!toggle);
-    console.log('toggle', toggle);
     bottomMain = document.querySelector('.bottom-main');
     toggleText = document.querySelector('.change');
 
@@ -90,6 +89,7 @@ function App() {
         default:
           alert('not an operation')
       }
+      textfield.value = '';
     }
   }
 

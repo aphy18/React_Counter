@@ -58,7 +58,7 @@ button:hover {
 }
 
 .top-main {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   width: 500px;
   height: 200px;
   display: flex;
@@ -67,7 +67,7 @@ button:hover {
 }
 
 .bottom-main {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   width: 500px;
   height: 200px;
 }
