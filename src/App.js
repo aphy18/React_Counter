@@ -1,4 +1,4 @@
-import { React, useState, useRef } from 'react';
+import { React, useState } from 'react';
 // import './../styles/styles.css'
 
 
@@ -16,50 +16,50 @@ function App() {
   let enterNum;
   let select;
 
-  function toggleCounter() {
-
-    console.log('COUNTER -->', counter)
-    setToggle(!toggle);
-    console.log('toggle', toggle);
-    bottomMain = document.querySelector('.bottom-main');
-    toggleText = document.querySelector('.change');
+  function creatElementsOnToggle() {
 
     sumContainer = document.createElement('div');
     textfield = document.createElement('input');
     label = document.createElement('label');
     enterNum = document.createElement('button');
-
     select = document.createElement('select');
     let add = document.createElement('option');
     let subtract = document.createElement('option');
     let multiply = document.createElement('option');
     let divide = document.createElement('option');
 
-    
+    sumContainer.classList.add('block');
+    textfield.type = 'text';
+    label.innerText = 'Enter Number: '
+    enterNum.innerText = 'Calculate';
+    enterNum.classList.add('enterNum');
+
+    add.innerText = '+';
+    add.value = '+'
+
+    subtract.innerText = '-';
+    subtract.value = '-';
+
+    multiply.innerText = '*';
+    multiply.value = '*';
+
+    divide.innerText = '/';
+    divide.value = '/';
+
+    select.append(add, subtract, multiply, divide);
+    console.log('select value -->', select.value)
+    sumContainer.append(label, textfield, enterNum, select);
+    bottomMain.append(sumContainer);
+  }
+
+  function toggleCounter() {
+    setToggle(!toggle);
+    console.log('toggle', toggle);
+    bottomMain = document.querySelector('.bottom-main');
+    toggleText = document.querySelector('.change');
 
     if (toggle) {
-      sumContainer.classList.add('block');
-      textfield.type = 'text';
-      label.innerText = 'Enter Number: '
-      enterNum.innerText = 'Calculate';
-      enterNum.classList.add('enterNum');
-
-      add.innerText = '+';
-      add.value = '+'
-
-      subtract.innerText = '-';
-      subtract.value = '-';
-
-      multiply.innerText = '*';
-      multiply.value = '*';
-
-      divide.innerText = '/';
-      divide.value = '/';
-
-      select.append(add, subtract, multiply, divide);
-      console.log('select value -->', select.value)
-      sumContainer.append(label, textfield, enterNum, select);
-      bottomMain.append(sumContainer);
+      creatElementsOnToggle();
       enterNum.addEventListener('click', updateCounter)
       setButtonText('Escape')
     } else {
@@ -91,7 +91,6 @@ function App() {
           alert('not an operation')
       }
     }
-    
   }
 
 
