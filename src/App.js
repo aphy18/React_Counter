@@ -8,6 +8,8 @@ function App() {
   let [buttonText, setButtonText] = useState('Operation');
   let [toggle, setToggle] = useState(true);
 
+  let increment;
+  let decrement;
   let bottomMain 
   let sumContainer;
   let textfield;
@@ -27,32 +29,42 @@ function App() {
     let subtract = document.createElement('option');
     let multiply = document.createElement('option');
     let divide = document.createElement('option');
+    increment = document.querySelector('.increment');
+    decrement = document.querySelector('.decrement');
+
+    increment.setAttribute('disabled', true);
+    decrement.setAttribute('disabled', true);
 
     sumContainer.classList.add('block');
-    textfield.type = 'text';
-    label.innerText = 'Enter Number: '
-    enterNum.innerText = 'Calculate';
+    select.classList.add('select');
     enterNum.classList.add('enterNum');
 
-    add.innerText = '+';
+    textfield.type = 'text';
+    label.innerText = 'Enter Number: '
+    label.classList.add('label');
+    enterNum.innerText = 'Calculate';
+
+    add.innerText = 'add(+)';
     add.value = '+'
 
-    subtract.innerText = '-';
+    subtract.innerText = 'subtract(-)';
     subtract.value = '-';
 
-    multiply.innerText = '*';
+    multiply.innerText = 'multiply(*)';
     multiply.value = '*';
 
-    divide.innerText = '/';
+    divide.innerText = 'divide(/)';
     divide.value = '/';
 
     select.append(add, subtract, multiply, divide);
-    console.log('select value -->', select.value)
     sumContainer.append(label, textfield, enterNum, select);
     bottomMain.append(sumContainer);
   }
 
   function toggleCounter() {
+    increment = document.querySelector('.increment');
+    decrement = document.querySelector('.decrement');
+    
     setToggle(!toggle);
     bottomMain = document.querySelector('.bottom-main');
     toggleText = document.querySelector('.change');
@@ -66,16 +78,21 @@ function App() {
         bottomMain.removeChild(bottomMain.lastChild)
         setButtonText('Operation')
       }
+      increment.removeAttribute('disabled');
+      decrement.removeAttribute('disabled');
     }
   }
   
   function updateCounter() {
+    
+
+    
+
     let value = parseFloat(textfield.value);
     if (!isNaN(value)) {
       switch(select.value) {
         case '+':
           setCounter(counter += value);
-          console.log('counter', counter)
           break;
         case '-':
           setCounter(counter -= value);
@@ -93,11 +110,10 @@ function App() {
     }
   }
 
-
   return (
     <>
     <h1>Button Counter</h1>
-    <div className="counter">{counter}</div>
+    <div className="counter">Counter: {counter}</div>
 
     <main className="main">
       <div className="top-main">
