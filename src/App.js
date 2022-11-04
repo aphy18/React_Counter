@@ -6,7 +6,7 @@ function App() {
 
   let [counter, setCounter] = useState(0);
   let [buttonText, setButtonText] = useState('Operation');
-  let [toggle, setToggle] = useState(true);
+  let [toggle, setToggle] = useState(false);
 
   let increment;
   let decrement;
@@ -18,77 +18,68 @@ function App() {
   let enterNum;
   let select;
 
-  function creatElementsOnToggle() {
+  // function creatElementsOnToggle() {
 
-    sumContainer = document.createElement('div');
-    textfield = document.createElement('input');
-    label = document.createElement('label');
-    enterNum = document.createElement('button');
-    select = document.createElement('select');
-    let add = document.createElement('option');
-    let subtract = document.createElement('option');
-    let multiply = document.createElement('option');
-    let divide = document.createElement('option');
-    increment = document.querySelector('.increment');
-    decrement = document.querySelector('.decrement');
+  //   sumContainer = document.createElement('div');
+  //   textfield = document.createElement('input');
+  //   label = document.createElement('label');
+  //   enterNum = document.createElement('button');
+  //   select = document.createElement('select');
+  //   let add = document.createElement('option');
+  //   let subtract = document.createElement('option');
+  //   let multiply = document.createElement('option');
+  //   let divide = document.createElement('option');
+  //   increment = document.querySelector('.increment');
+  //   decrement = document.querySelector('.decrement');
 
-    increment.setAttribute('disabled', true);
-    decrement.setAttribute('disabled', true);
+  //   // increment.setAttribute('disabled', true);
+  //   // decrement.setAttribute('disabled', true);
 
-    sumContainer.classList.add('block');
-    select.classList.add('select');
-    enterNum.classList.add('enterNum');
+  //   sumContainer.classList.add('block');
+  //   select.classList.add('select');
+  //   enterNum.classList.add('enterNum');
 
-    textfield.type = 'text';
-    label.innerText = 'Enter Number: '
-    label.classList.add('label');
-    enterNum.innerText = 'Calculate';
+  //   textfield.type = 'text';
+  //   label.innerText = 'Enter Number: '
+  //   label.classList.add('label');
+  //   enterNum.innerText = 'Calculate';
 
-    add.innerText = 'add(+)';
-    add.value = '+'
+  //   add.innerText = 'add(+)';
+  //   add.value = '+'
 
-    subtract.innerText = 'subtract(-)';
-    subtract.value = '-';
+  //   subtract.innerText = 'subtract(-)';
+  //   subtract.value = '-';
 
-    multiply.innerText = 'multiply(*)';
-    multiply.value = '*';
+  //   multiply.innerText = 'multiply(*)';
+  //   multiply.value = '*';
 
-    divide.innerText = 'divide(/)';
-    divide.value = '/';
+  //   divide.innerText = 'divide(/)';
+  //   divide.value = '/';
 
-    select.append(add, subtract, multiply, divide);
-    sumContainer.append(label, textfield, enterNum, select);
-    bottomMain.append(sumContainer);
-  }
+  //   select.append(add, subtract, multiply, divide);
+  //   sumContainer.append(label, textfield, enterNum, select);
+  //   bottomMain.append(sumContainer);
+  // }
 
   function toggleCounter() {
-    increment = document.querySelector('.increment');
-    decrement = document.querySelector('.decrement');
-    
     setToggle(!toggle);
-    bottomMain = document.querySelector('.bottom-main');
-    toggleText = document.querySelector('.change');
-
     if (toggle) {
-      creatElementsOnToggle();
-      enterNum.addEventListener('click', updateCounter)
       setButtonText('Escape')
-    } else {
-      while (bottomMain.firstChild) {
-        bottomMain.removeChild(bottomMain.lastChild)
-        setButtonText('Operation')
-      }
-      increment.removeAttribute('disabled');
-      decrement.removeAttribute('disabled');
     }
+    // } else {
+    //   while (bottomMain.firstChild) {
+    //     bottomMain.removeChild(bottomMain.lastChild)
+    //     setButtonText('Operation')
+    //   }
+      // increment.removeAttribute('disabled');
+      // decrement.removeAttribute('disabled');
   }
   
   function updateCounter() {
-    
-
-    
-
+    textfield = document.querySelector('.textfield');
+    select = document.querySelector('.select');
     let value = parseFloat(textfield.value);
+    console.log('value -->', value)
     if (!isNaN(value)) {
       switch(select.value) {
         case '+':
@@ -106,8 +97,8 @@ function App() {
         default:
           alert('not an operation')
       }
-      textfield.value = '';
     }
+    textfield.value = '';
   }
 
   return (
@@ -115,14 +106,31 @@ function App() {
     <h1>Button Counter</h1>
     <div className="counter">Counter: {counter}</div>
 
+
     <main className="main">
+
       <div className="top-main">
         <button className="increment" onClick={() => setCounter(counter += 1)}>Count Up</button>
         <button className="decrement" onClick={() => setCounter(counter -= 1)}>Count Down</button>
         <button className="reset" onClick={() => setCounter(0)}>Reset</button>
-        <button className="change" onClick={() => toggleCounter()}>{buttonText}</button>
+        {!toggle ? <button className="change" onClick={() => toggleCounter()}>Operation</button> 
+        : <button className="change" onClick={() => toggleCounter()}>Escape</button>}
       </div>
-      <div className="bottom-main"></div>
+      {!toggle ? null :
+        <div className="bottom-main">
+          <div className="block">
+            <label className="label">Enter Number</label>
+            <input type="text" placeholder="Number" className="textfield" />
+            <select className="select">
+              <option value="+">add(+)</option>
+              <option value="-">subtract(-)</option>
+              <option value="*">multiply(*)</option>
+              <option value="/">divide(/)</option>
+            </select>
+            <button className="enterNum" onClick={() => updateCounter()}>Calculate</button>
+          </div>
+        </div>
+      }
     </main>
     </>
   )
