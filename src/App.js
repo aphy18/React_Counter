@@ -3,21 +3,18 @@ import './styles/styles.css';
 
 
 function App() {
-
+  
   let [counter, setCounter] = useState(0);
-  let [buttonText, setButtonText] = useState('Operation');
   let [toggle, setToggle] = useState(false);
-  let getPrev = useRef();
-
-  let increment;
-  let decrement;
-  let bottomMain 
-  let sumContainer;
+  let getPrev = useRef(counter);
+  let arr = [];
+  
   let textfield;
-  let label;
-  let toggleText;
-  let enterNum;
   let select;
+  
+  useEffect(() => {
+    getPrev.current = counter;
+  }, [counter])
 
   function updateCounter() {
     textfield = document.querySelector('.textfield');
@@ -44,29 +41,19 @@ function App() {
           alert('not an operation')
       }
     }
-    // textfield.value = '';
   }
 
-  function getPreviousState() {
-    setCounter((prevCount) => prevCount)
-    console.log('COUNTER', counter)
-  }
-
-  useEffect(() => {
-    getPrev.current = counter;
-  }, [counter])
+  arr[0] = getPrev.current;
 
   return (
     <>
-    {console.log(counter, getPrev.current)}
     <h1>Button Counter</h1>
-    <h2>{getPrev.current}</h2>
     <div className="counter">Counter: {counter}</div>
     <main className="main">
       <div className="top-main">
         <button className="increment" onClick={() => setCounter(counter += 1)}>Count Up</button>
         <button className="decrement" onClick={() => setCounter(counter -= 1)}>Count Down</button>
-        <button onClick={() =>  getPreviousState()}>Previous Value</button>
+        <button className="prevState" onClick={() => setCounter(arr[0])}>Previous Value</button>
         <button className="reset" onClick={() => setCounter(0)}>Reset</button>
         {!toggle ? <button className="change" onClick={() => setToggle(!toggle)}>Operation</button> 
         : <button className="change" onClick={() => setToggle(!toggle)}>Escape</button>}

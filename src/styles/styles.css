@@ -55,6 +55,10 @@ button:hover {
   color: black;
 }
 
+.prevState {
+  color: black;
+}
+
 .enterNum {
   width: 75px;
   height: 30px;
